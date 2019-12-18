@@ -33,6 +33,7 @@ namespace WebApiDemo.Controllers
             string fileName = @"C:\Users\Administrator\Pictures\DCIM(1).jpg";
             return this.SendFile(fileName);
         }
+        
         /// <summary>
         /// 直接从主体中获取值
         /// </summary>

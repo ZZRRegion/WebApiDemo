@@ -38,7 +38,7 @@ namespace WebApiDemo
                 if (File.Exists(FileName))
                 {
                     FileInfo fi = new FileInfo(FileName);
-                    if(fi.Length > 1024 * 100)
+                    if(fi.Length > 1024 * 10)
                     {
                         fi.Delete();
                     }

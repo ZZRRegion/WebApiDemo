@@ -26,6 +26,7 @@ namespace WebApiDemo.Middlewares
 {
     public class LogMiddleware : Microsoft.Owin.OwinMiddleware
     {
+        public long Count { get; set; }
         public LogMiddleware(OwinMiddleware next)
             :base(next)
         {
@@ -33,7 +34,9 @@ namespace WebApiDemo.Middlewares
         }
         public override Task Invoke(IOwinContext context)
         {
-            RLog.Add($"{context.Request.RemoteIpAddress}:{context.Request.RemotePort}");
+            string log = $"{context.Request.RemoteIpAddress}:{context.Request.RemotePort}";
+            Console.WriteLine($"{this.Count++} {log}");
+            RLog.Add(log);
             return this.Next.Invoke(context);
 
         }
