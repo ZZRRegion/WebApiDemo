@@ -32,6 +32,7 @@ namespace WebApiDemo
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
+            app.Use<Middlewares.LogMiddleware>();
             app.UseWebApi(config);
         }
         #region 构造函数

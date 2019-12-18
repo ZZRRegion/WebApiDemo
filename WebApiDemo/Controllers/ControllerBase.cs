@@ -2,11 +2,11 @@
 * 说    明: 
 * CLR版 本：4.0.30319.42000
 * 命名空间：WebApiDemo.Controllers
-* 类 名 称：HomeController
-* 创建日期：2019/12/18 14:29:51
+* 类 名 称：ControllerBase
+* 创建日期：2019/12/18 15:43:36
 * 作    者：ZZR
 * 版 本 号：4.0.30319.42000
-* 文 件 名：HomeController
+* 文 件 名：ControllerBase
 * 修改记录：
 *  R1：
 *	  修改作者：
@@ -22,25 +22,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Windows.Controls;
-using WebApiDemo.Models;
-
 namespace WebApiDemo.Controllers
 {
-    public class HomeController:ControllerBase
+    public class ControllerBase:ApiController
     {
-        public IHttpActionResult Get()
+        protected IHttpActionResult SendFile(string fileName)
         {
-            string fileName = @"C:\Users\Administrator\Pictures\DCIM(1).jpg";
-            return this.SendFile(fileName);
-        }
-        /// <summary>
-        /// 直接从主体中获取值
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public IHttpActionResult Post([FromBody]HomeModel model)
-        {
-            return this.Json(model);
+            HttpResponseMessage httpResponse = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+            ByteArrayContent arrayContent = new ByteArrayContent(File.ReadAllBytes(fileName));
+            httpResponse.Content = arrayContent;
+            return this.ResponseMessage(httpResponse);
         }
         #region 构造函数
         #endregion

@@ -24,7 +24,9 @@ namespace WebApiDemo
         public MainWindow()
         {
             InitializeComponent();
-            WebApp.Start<Startup>("http://*:8080");
+            StartOptions options = new StartOptions();
+            options.Urls.Add("http://*:8080");
+            WebApp.Start<Startup>(options);
         }
     }
 }
