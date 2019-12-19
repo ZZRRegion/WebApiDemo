@@ -5,8 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebApiDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Loaded="Window_Loaded"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Topmost="True"
+        Title="主机信息" Height="450" Width="800">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="lgb">
+            <GradientStop Color="Red" Offset="0"/>
+            <GradientStop Color="Green" Offset="0.5"/>
+            <GradientStop Color="Blue" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="lgb2">
+            <GradientStop Color="Blue" Offset="0"/>
+            <GradientStop Color="Gray" Offset="0.5"/>
+            <GradientStop Color="Red" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Border Background="White" ClipToBounds="True">
+        <Border.Clip>
+            <GeometryGroup>
+                <RectangleGeometry Rect="0,0,800,450" RadiusX="20" RadiusY="20"/>
+            </GeometryGroup>
+        </Border.Clip>
+        <Grid Margin="0" ClipToBounds="True" TextBlock.FontSize="30" TextBlock.Foreground="{StaticResource lgb}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <ImageBrush Opacity="0.3" ImageSource="/Images/1.jpg"/>
+            </Grid.Background>
+            <Path Grid.RowSpan="3" Data="M0,20 A 20,20 0 0 1 20,0L780,0A 20,20 0 0 1 800,20L800,430A 20,20 0 0 1 780,450L20,450A 20,20 0 0 1 0,430z" Stroke="{StaticResource lgb}" StrokeThickness="10">
+            </Path>
+            <DockPanel Margin="10" Height="40">
+                <Image Source="/fox.ico" DockPanel.Dock="Left"/>
+                <TextBlock Margin="10,0,0,0" DockPanel.Dock="Left" VerticalAlignment="Center">
+                    <Run Text="主机信息"/>
+                    <Run Text="{x:Static local:RCommon.Version}"/>
+                </TextBlock>
+                <DockPanel DockPanel.Dock="Left">
+                    <Button Focusable="False" x:Name="btnClose" Click="BtnClose_Click" DockPanel.Dock="Right" HorizontalAlignment="Right" Content="X" Width="50" BorderThickness="0">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border x:Name="border" Background="Green" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                                <Border.RenderTransform>
+                                                    <TranslateTransform Y="0"/>
+                                                </Border.RenderTransform>
+                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="X" FontSize="35" Foreground="Black"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="Blue"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DockPanel>
+            </DockPanel>
+            <Rectangle Fill="Black" Grid.Row="1"/>
+            <Border Grid.Row="2" Width="400" VerticalAlignment="Center" BorderBrush="{StaticResource lgb2}" BorderThickness="2">
+                <StackPanel VerticalAlignment="Center" TextBlock.FontSize="40" Grid.Row="2" x:Name="sp">
+                    <TextBlock>
+                    <Run Text="CPU温度："/>
+                    <Run Text="{Binding CPUTem}"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,20,0,0">
+                    <Run Text="CPU使用："/>
+                    <Run Text="{Binding CPU}"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,20,0,0">
+                    <Run Text="内存使用："/>
+                    <Run Text="{Binding RAM}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </Window>
